@@ -93,7 +93,8 @@ class AuthController extends Controller
         User::query()->where('id', Auth::user()->id)->update([
             'width' => $request->width,
             'height' => $request->height,
-            'address' => $request->address
+            'address' => $request->address,
+            'gender' => $request->gender
         ]);
         return response()->json([
             'message' => 'user has been updated successfully'
