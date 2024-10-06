@@ -65,7 +65,7 @@ class GoalController extends Controller
             })
             ->with(['targets' => function ($query) {
                 $query->where('user_id', auth()->id());
-            }])
+            }, 'media'])
             ->get();
         return response()->json($goals);
     }

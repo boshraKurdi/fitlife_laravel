@@ -46,6 +46,6 @@ Route::group(['prefix' => 'plan'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'target'], function () {
         Route::get('index', [GoalController::class, 'getUserGoals']);
-        Route::get('{goal}/plans', [GoalController::class, 'getPlanForGoal']);
+        Route::get('plans/{goal}', [GoalController::class, 'getPlanForGoal']);
     });
 });

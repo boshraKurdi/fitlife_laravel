@@ -36,7 +36,7 @@ class TargetFactory extends Factory
             'goal_plan_level_id' => $goalPlanLevel->id,
             'calories' => rand(100, 5000),
             'duration' =>  rand(1, 30) . ' days',
-            'rate' =>  rand(0, 100) . ' %'
+            'rate' =>  rand(0, 100) . '%'
         ];
     }
 }
