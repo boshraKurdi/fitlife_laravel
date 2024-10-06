@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
@@ -38,7 +39,19 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'remember_token',
     ];
+    public function goalPlanLevel(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            GoalPlanLevel::class,
+            'targets',
+        );
+    }
+    public function gpl()
+    {
+        return $this->hasManyThrough(GoalPlanLevel::class, Target::class, 'user_id', 'id', 'id', 'goal_plan_level_id');
+    }
 
+    // targets.user_id = 16
     /**
      * Get the attributes that should be cast.
      *

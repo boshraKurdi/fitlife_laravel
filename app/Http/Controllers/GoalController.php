@@ -57,6 +57,26 @@ class GoalController extends Controller
         return response()->json($goals);
     }
 
+    public function getUserGoals()
+    {
+        $goals = Goal::query()
+            ->whereHas('targets', function ($q) {
+                $q->where('user_id', auth()->id());
+            })
+            ->with(['targets' => function ($query) {
+                $query->where('user_id', auth()->id());
+            }])
+            ->get();
+        return response()->json($goals);
+    }
+
+    public function getPlanForGoal(Goal $goal)
+    {
+
+        $plans = Goal::with(['PlanLevel', 'PlanLevel.plan'])->where('id', 2)->with('PlanLevel')->get();
+        return response()->json($plans);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

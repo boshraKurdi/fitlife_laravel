@@ -17,6 +17,14 @@ class Goal extends Model implements HasMedia
         'calories',
         'duration',
     ];
+    public function PlanLevel()
+    {
+        return $this->belongsToMany(PlanLevel::class, 'goal_plan_levels');
+    }
+    public function targets()
+    {
+        return $this->hasManyThrough(Target::class, GoalPlanLevel::class);
+    }
 
     public function registerMediaCollections(): void
     {

@@ -14,8 +14,8 @@ class MideaSeeder extends Seeder
      */
     public function run(): void
     {
-        $image_1 = 'C:/react/fitlife/src/img/a-banner.png';
-        $image_2 = 'C:/react/fitlife/src/img/class-one.jpg';
+        $image_1 = storage_path('images\blog-two.jpg');
+        $image_2 = storage_path('images\class-one.jpg');
         for ($i = 1; $i <= 20; $i++) {
             $plan = Plan::find($i);
             $plan

@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             PlanSeeder::class,
             LevelSeeder::class,
             PlanLevelSeeder::class,
+            GoalPlanLevelSeeder::class,
+            TargetSeeder::class,
             MideaSeeder::class
         ]);
     }
