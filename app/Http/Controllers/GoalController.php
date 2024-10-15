@@ -14,7 +14,7 @@ class GoalController extends Controller
     public function index()
     {
         $goals = Goal::query()->with('media')->get();
-        return response()->json($goals);
+        return response()->json(['data' => $goals]);
     }
 
     /**
