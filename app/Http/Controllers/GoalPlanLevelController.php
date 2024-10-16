@@ -29,7 +29,7 @@ class GoalPlanLevelController extends Controller
      */
     public function store(StoreGoalPlanLevelRequest $request)
     {
-        //
+        return response()->json('s');
     }
 
     /**
