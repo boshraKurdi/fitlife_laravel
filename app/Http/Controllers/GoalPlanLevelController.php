@@ -13,9 +13,16 @@ class GoalPlanLevelController extends Controller
      */
     public function index()
     {
-        $targets = GoalPlanLevel::query()->with(['goals'])->get();
+        //
+    }
+
+    public function getPlanForGoals($ids)
+    {
+        $idsArray = explode(',', $ids);
+        $targets = GoalPlanLevel::query()->whereIn('goal_id', $idsArray)->with(['planLevels.plan', 'planLevels.level', 'planLevels.plan.media', 'goals'])->get();
         return response()->json($targets);
     }
+
 
     /**
      * Store a newly created resource in storage.

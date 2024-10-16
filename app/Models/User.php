@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +28,9 @@ class User extends Authenticatable implements JWTSubject
         'gender',
         'address',
         'google_id',
-        'google_token'
+        'google_token',
+        'lat',
+        'lon'
     ];
 
     /**
@@ -46,12 +49,6 @@ class User extends Authenticatable implements JWTSubject
             'targets',
         );
     }
-    public function gpl()
-    {
-        return $this->hasManyThrough(GoalPlanLevel::class, Target::class, 'user_id', 'id', 'id', 'goal_plan_level_id');
-    }
-
-    // targets.user_id = 16
     /**
      * Get the attributes that should be cast.
      *

@@ -26,6 +26,10 @@ class Plan extends Model implements HasMedia
             'level_id'
         );
     }
+    public function goalPlanLevel()
+    {
+        return $this->hasManyThrough(GoalPlanLevel::class, PlanLevel::class);
+    }
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('plans')->singleFile();

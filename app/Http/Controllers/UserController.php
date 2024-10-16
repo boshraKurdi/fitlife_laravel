@@ -7,17 +7,32 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function update(Request $request, User $user)
+    public function index()
     {
-        $user->update([
+        $users = User::get();
+        return response()->json($users);
+    }
+
+    public function show(User $user)
+    {
+        return response()->json($user);
+    }
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return response()->json('user been deleted successfully');
+    }
+
+    public function updata(Request $request)
+    {
+        User::where('id', auth()->id())->update([
             'width' => $request->width,
             'height' => $request->height,
-            'address' => $request->address
+            'address' => $request->address,
+            'lat' => $request->lat,
+            'lon' => $request->lon
         ]);
-        return response()->json([
-            'message' => 'user has been updated successfully',
-            'user' => $user
-        ]);
+        return response()->json('succ');
     }
     public function checkEmail($email)
     {

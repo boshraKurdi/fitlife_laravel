@@ -13,8 +13,22 @@ class PlanLevelController extends Controller
      */
     public function index()
     {
-        //
+        $index = PlanLevel::with(['plan', 'level', 'plan.media'])->get();
+        return response()->json($index);
     }
+
+    public function getPlanForGoals($ids)
+    {
+        $plans = PlanLevel::query()
+            ->with(['plan', 'level'])
+            ->whereHas('goalPlanLevel', function ($q)  use ($ids) {
+                $q->where('goal_id', $ids);
+            })
+            ->get();
+
+        return response()->json($plans);
+    }
+
 
     /**
      * Store a newly created resource in storage.

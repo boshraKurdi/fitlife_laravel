@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email');
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
+            $table->double('lat')->nullable();
+            $table->double('lon')->nullable();
             $table->string('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();

@@ -17,6 +17,19 @@ class PlanController extends Controller
         return response()->json($plans);
     }
 
+    public function getPlanForGoals($ids)
+    {
+        $plans = Plan::query()->with('levels')->whereHas('goalPlanLevel', function ($q)  use ($ids) {
+            $q->where('goal_id', $ids);
+        })
+            // ->with(['levels', 'goalPlanLevel' => function ($q) use ($ids) {
+            //     $q->where('goal_id', $ids);
+            // }])
+            ->get();
+
+        return response()->json($plans);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

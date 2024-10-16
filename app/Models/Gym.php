@@ -7,29 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Goal extends Model implements HasMedia
+class Gym extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
-        'title',
+        'name',
         'description',
-        'calories',
-        'duration',
+        'location_id'
     ];
 
-    public function PlanLevel()
+    public function location()
     {
-        return $this->belongsToMany(PlanLevel::class, 'goal_plan_levels');
-    }
-
-    public function targets()
-    {
-        return $this->hasManyThrough(Target::class, GoalPlanLevel::class);
+        return $this->belongsTo(Location::class);
     }
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('goals')->singleFile();
+        $this->addMediaCollection('gyms')->singleFile();
     }
 }

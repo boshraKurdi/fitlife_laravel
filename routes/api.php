@@ -4,9 +4,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\GoalPlanLevelController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\GymController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PlanLevelController;
 use App\Http\Controllers\TargetController;
 use App\Http\Controllers\UserController;
+use App\Models\GoalPlanLevel;
+use App\Models\Plan;
+use App\Models\PlanLevel;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth'], function () {
@@ -29,14 +34,15 @@ Route::group(['prefix' => 'user'], function () {
 });
 Route::group(['prefix' => 'goal'], function () {
     Route::get('index', [GoalController::class, 'index']);
+    Route::get('{goal}/show', [GoalController::class, 'show']);
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('{goal}/update', [GoalController::class, 'update']);
         Route::post('store', [GoalController::class, 'store']);
-        Route::get('{goal}/show', [GoalController::class, 'show']);
     });
 });
 Route::group(['prefix' => 'plan'], function () {
-    Route::get('index', [PlanController::class, 'index']);
+    Route::get('index', [PlanLevelController::class, 'index']);
+    Route::get('plansForGoal/{ids}', [GoalPlanLevelController::class, 'getPlanForGoals']);
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('{plan}/update', [PlanController::class, 'update']);
         Route::post('store', [PlanController::class, 'store']);
@@ -46,6 +52,15 @@ Route::group(['prefix' => 'plan'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'target'], function () {
         Route::get('index', [GoalController::class, 'getUserGoals']);
-        Route::get('plans/{goal}', [GoalController::class, 'getPlanForGoal']);
+        Route::get('plans/{ids}', [GoalPlanLevelController::class, 'getPlanForGoals']);
+    });
+    Route::group(['prefix' => 'gym'], function () {
+        Route::get('index', [GymController::class, 'index']);
+        Route::get('show/{gym}', [GymController::class, 'show']);
+    });
+});
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('index', [UserController::class, 'index']);
     });
 });

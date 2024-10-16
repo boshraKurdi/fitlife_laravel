@@ -25,6 +25,10 @@ class GoalPlanLevel extends Model
     }
     public function goals()
     {
-        return $this->hasMany(Goal::class, 'id');
+        return $this->belongsTo(Goal::class, 'goal_id');
+    }
+    public function planLevels()
+    {
+        return $this->belongsTo(PlanLevel::class, 'plan_level_id');
     }
 }

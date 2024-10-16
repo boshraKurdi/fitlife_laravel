@@ -22,4 +22,9 @@ class PlanLevel extends Model
     {
         return $this->belongsTo(Plan::class);
     }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
 }

@@ -94,7 +94,9 @@ class AuthController extends Controller
             'width' => $request->width,
             'height' => $request->height,
             'address' => $request->address,
-            'gender' => $request->gender
+            'gender' => $request->gender,
+            'lat' => $request->lat,
+            'lon' => $request->lon
         ]);
         return response()->json([
             'message' => 'user has been updated successfully'
